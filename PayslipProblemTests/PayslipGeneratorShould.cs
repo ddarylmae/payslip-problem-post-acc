@@ -1,5 +1,6 @@
 using System;
 using Moq;
+using PayslipProblemVer2;
 using Xunit;
 
 namespace PayslipProblemTests
@@ -7,7 +8,7 @@ namespace PayslipProblemTests
     public class PayslipGeneratorShould
     {
         [Fact]
-        public void Return_employee_name_in_payslip()
+        public void Return_employee_name()
         {
             var payslipGenerator = new PayslipGenerator();
             var employee = new Employee
@@ -16,41 +17,24 @@ namespace PayslipProblemTests
                 Surname = "Doe"
             };
 
-            var payslip = payslipGenerator.GeneratePayslip(employee, It.IsAny<Period>());
+            var payslip = payslipGenerator.GeneratePayslip(employee, new Period());
             
             Assert.Equal("John Doe", payslip.Name);
         }
-    }
 
-    public class Period
-    {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-    }
-
-    public class Employee
-    {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public decimal AnnualSalary { get; set; }
-        public decimal SuperRate { get; set; }
-    }
-
-    public class PayslipGenerator
-    {
-        public Payslip GeneratePayslip(Employee employee, Period period)
+        [Fact]
+        public void Return_pay_period()
         {
-            return new Payslip {Name = $"{employee.Name} {employee.Surname}"};
-        }
-    }
+            var payslipGenerator = new PayslipGenerator();
+            var period = new Period
+            {
+                StartDate = new DateTime(2019, 6, 1),
+                EndDate = new DateTime(2019, 6, 30),
+            };
 
-    public class Payslip
-    {
-        public string Name { get; set; }
-        public string Period { get; set; }
-        public int GrossIncome { get; set; }
-        public int IncomeTax { get; set; }
-        public int NetIncome { get; set; }
-        public int Super { get; set; }
+            var payslip = payslipGenerator.GeneratePayslip(new Employee(), period);
+            
+            Assert.Equal("01 June - 30 June", payslip.Period);
+        }
     }
 }
