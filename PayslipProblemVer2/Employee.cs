@@ -4,7 +4,5 @@ namespace PayslipProblemVer2
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public decimal AnnualSalary { get; set; }
-        public decimal SuperRate { get; set; }
     }
 }
