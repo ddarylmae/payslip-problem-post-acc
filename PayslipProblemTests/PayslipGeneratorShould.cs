@@ -36,5 +36,6 @@ namespace PayslipProblemTests
             
             Assert.Equal("01 June - 30 June", payslip.Period);
         }
+        
     }
 }

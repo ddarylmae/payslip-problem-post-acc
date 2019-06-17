@@ -1,3 +1,5 @@
+using System;
+
 namespace PayslipProblemVer2
 {
     public class PayslipGenerator
@@ -6,9 +8,24 @@ namespace PayslipProblemVer2
         {
             return new Payslip
             {
-                Name = $"{employee.Name} {employee.Surname}",
-                Period = $"{period.StartDate.ToString("dd MMMM")} - {period.EndDate.ToString("dd MMMM")}"
+                Name = GetName(employee),
+                Period = GetPeriod(period)
             };
+        }
+
+        private string GetPeriod(Period period)
+        {
+            return $"{GetFormattedDate(period.StartDate)} - {GetFormattedDate(period.EndDate)}";
+        }
+
+        private string GetFormattedDate(DateTime date)
+        {
+            return date.ToString("dd MMMM");
+        }
+
+        private string GetName(Employee employee)
+        {
+            return $"{employee.Name} {employee.Surname}";
         }
     }
 }
