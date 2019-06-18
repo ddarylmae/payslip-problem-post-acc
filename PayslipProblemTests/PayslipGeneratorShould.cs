@@ -13,7 +13,7 @@ namespace PayslipProblemTests
         public void Return_employee_name()
         {
             var employee = GetJohnDoeFake();
-            _payslipGenerator = new PayslipGenerator();
+            _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
 
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
@@ -24,7 +24,7 @@ namespace PayslipProblemTests
         public void Return_pay_period()
         {
             var period = GetJunePeriodFake();
-            _payslipGenerator = new PayslipGenerator();
+            _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
 
             var payslip = _payslipGenerator.GetPayslip(GetJohnDoeFake(), period);
 
@@ -36,7 +36,7 @@ namespace PayslipProblemTests
         {
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = 60050;
-            _payslipGenerator = new PayslipGenerator();
+            _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
 
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
@@ -63,7 +63,7 @@ namespace PayslipProblemTests
         {
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
-            _payslipGenerator = new PayslipGenerator();
+            _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
             
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
@@ -77,7 +77,7 @@ namespace PayslipProblemTests
         {
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
-            _payslipGenerator = new PayslipGenerator();
+            _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
 
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
@@ -92,7 +92,7 @@ namespace PayslipProblemTests
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
             employee.SuperRate = superRate;
-            _payslipGenerator = new PayslipGenerator();
+            _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
             
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
