@@ -10,9 +10,15 @@ namespace PayslipProblemTests
         public uint Calculate(uint annualSalary)
         {
             var payRange = PayRange.Get(annualSalary);
-            var incomeTax = (uint) Math.Round(payRange.Add + (annualSalary - payRange.LowerLimit) * payRange.Cents);
+            var incomeTax = payRange.Amount + (annualSalary - payRange.LowerLimit) * payRange.Excess;
+            var roundedIncomeTax = RoundOff(incomeTax);
             
-            return incomeTax;
+            return roundedIncomeTax;
+        }
+
+        private uint RoundOff(double incomeTax)
+        {
+            return (uint) Math.Round(incomeTax);
         }
     }
 }

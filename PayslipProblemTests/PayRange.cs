@@ -6,14 +6,15 @@ namespace PayslipProblemTests
     public class PayRange
     {
         public uint LowerLimit { get; private set; }
-        public double Add { get; private set; }
-        public double Cents { get; private set; }
+        public double Amount { get; private set; }
+        public double Excess { get; private set; }
 
         private static readonly List<PayRange> PayRanges = new List<PayRange>
         {
-            new PayRange {LowerLimit = 37001, Add = 3572, Cents = 0.325},
-            new PayRange {LowerLimit = 18201, Add = 0, Cents = 0.19},
-            new PayRange {LowerLimit = 0, Add = 0, Cents = 0},
+            new PayRange {LowerLimit = 87001, Amount = 19822, Excess = 0.37},
+            new PayRange {LowerLimit = 37001, Amount = 3572, Excess = 0.325},
+            new PayRange {LowerLimit = 18201, Amount = 0, Excess = 0.19},
+            new PayRange {LowerLimit = 0, Amount = 0, Excess = 0},
         };
 
         public static PayRange Get(uint annualSalary)
