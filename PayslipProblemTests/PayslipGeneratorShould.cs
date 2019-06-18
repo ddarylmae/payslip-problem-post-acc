@@ -17,7 +17,7 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_employee_name()
         {
-            var payslip = _payslipGenerator.GetPayslip(GetJohnDoeFake(), GetJunePeriodFake());
+            var payslip = _payslipGenerator.Get(GetJohnDoeFake(), GetJunePeriodFake());
             
             Assert.Contains("Name: John Doe", payslip);
         }
@@ -25,7 +25,7 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_pay_period()
         {
-            var payslip = _payslipGenerator.GetPayslip(GetJohnDoeFake(), GetJunePeriodFake());
+            var payslip = _payslipGenerator.Get(GetJohnDoeFake(), GetJunePeriodFake());
 
             Assert.Contains("Pay Period: 01 June - 30 June", payslip);
         }
@@ -36,7 +36,7 @@ namespace PayslipProblemTests
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = 60050;
             
-            var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
             
             Assert.Contains("Gross Income: 5004", payslip);
         }
@@ -62,7 +62,7 @@ namespace PayslipProblemTests
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
             
-            var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
             
             Assert.Contains($"Income Tax: {expectedIncomeTax}", payslip);
         }
@@ -75,7 +75,7 @@ namespace PayslipProblemTests
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
 
-            var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
             
             Assert.Contains($"Net Income: {expectedNetIncome}", payslip);
         }
@@ -89,7 +89,7 @@ namespace PayslipProblemTests
             employee.AnnualSalary = annualSalary;
             employee.SuperRate = superRate;
             
-            var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
             
             Assert.Contains($"Super: {expectedSuper}", payslip);
         }
