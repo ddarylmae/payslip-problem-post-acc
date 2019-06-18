@@ -17,7 +17,23 @@ namespace PayslipProblemVer2
                    $"{GetPeriod(period)}\n" +
                    $"{GetGrossIncome(employee.AnnualSalary)}\n" +
                    $"{GetNetIncome(employee.AnnualSalary)}\n" +
-                   $"{GetIncomeTax(employee.AnnualSalary)}\n";
+                   $"{GetIncomeTax(employee.AnnualSalary)}\n" +
+                   $"{GetSuper(employee)}\n";
+        }
+
+        private string GetSuper(Employee employee)
+        {
+            var super = CalculateSuper(employee);
+
+            return $"Super: {super}";
+        }
+
+        private double CalculateSuper(Employee employee)
+        {
+            var gross = CalculateGross(employee.AnnualSalary);
+            var super = gross * (employee.SuperRate / 100.0);
+            
+            return Math.Round(super);
         }
 
         private string GetNetIncome(uint annualSalary)
@@ -25,6 +41,7 @@ namespace PayslipProblemVer2
             var grossIncome = CalculateGross(annualSalary);
             var incomeTax = CalculateTax(annualSalary);
             var netIncome = grossIncome - incomeTax;
+            
             return $"Net Income: {netIncome}";
         }
 

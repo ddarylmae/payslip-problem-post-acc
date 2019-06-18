@@ -70,16 +70,33 @@ namespace PayslipProblemTests
             Assert.Contains($"Income Tax: {expectedIncomeTax}", payslip);
         }
 
-        [Fact]
-        public void Return_net_income()
+        [Theory]
+        [InlineData(10000, 833)]
+        [InlineData(60050, 4082)]
+        public void Return_net_income(uint annualSalary, uint expectedNetIncome)
         {
             var employee = GetJohnDoeFake();
-            employee.AnnualSalary = 60050;
+            employee.AnnualSalary = annualSalary;
             _payslipGenerator = new PayslipGenerator();
 
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
-            Assert.Contains("Net Income: 4082", payslip);
+            Assert.Contains($"Net Income: {expectedNetIncome}", payslip);
+        }
+
+        [Theory]
+        [InlineData(10000, 12, 100)]
+        [InlineData(60050, 9, 450)]
+        public void Return_super(uint annualSalary, double superRate, uint expectedSuper)
+        {
+            var employee = GetJohnDoeFake();
+            employee.AnnualSalary = annualSalary;
+            employee.SuperRate = superRate;
+            _payslipGenerator = new PayslipGenerator();
+            
+            var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
+            
+            Assert.Contains($"Super: {expectedSuper}", payslip);
         }
 
         private Employee GetJohnDoeFake()
