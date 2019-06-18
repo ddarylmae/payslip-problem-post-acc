@@ -5,6 +5,7 @@ namespace PayslipProblemVer2
     public class PayslipGenerator
     {
         private readonly IncomeTaxCalculator _incomeTaxCalculator;
+        private Employee _employee;
 
         public PayslipGenerator()
         {
@@ -13,58 +14,63 @@ namespace PayslipProblemVer2
         
         public string GetPayslip(Employee employee, Period period)
         {
-            return $"{GetName(employee)}\n" +
+            _employee = employee;
+            return $"{GetName()}\n" +
                    $"{GetPeriod(period)}\n" +
-                   $"{GetGrossIncome(employee.AnnualSalary)}\n" +
-                   $"{GetNetIncome(employee.AnnualSalary)}\n" +
-                   $"{GetIncomeTax(employee.AnnualSalary)}\n" +
-                   $"{GetSuper(employee)}\n";
+                   $"{GetGrossIncome()}\n" +
+                   $"{GetNetIncome()}\n" +
+                   $"{GetIncomeTax()}\n" +
+                   $"{GetSuper()}\n";
         }
 
-        private string GetSuper(Employee employee)
+        private string GetSuper()
         {
-            var super = CalculateSuper(employee);
+            var super = CalculateSuper();
 
             return $"Super: {super}";
         }
 
-        private double CalculateSuper(Employee employee)
+        private double CalculateSuper()
         {
-            var gross = CalculateGross(employee.AnnualSalary);
-            var super = gross * (employee.SuperRate / 100.0);
+            var gross = CalculateGross();
+            var super = gross * (_employee.SuperRate / 100.0);
             
             return Math.Round(super);
         }
 
-        private string GetNetIncome(uint annualSalary)
+        private string GetNetIncome()
         {
-            var grossIncome = CalculateGross(annualSalary);
-            var incomeTax = CalculateTax(annualSalary);
-            var netIncome = grossIncome - incomeTax;
-            
-            return $"Net Income: {netIncome}";
+            return $"Net Income: {CalculateNetIncome()}";
         }
 
-        private string GetIncomeTax(uint annualSalary)
+        private uint CalculateNetIncome()
         {
-            var income = CalculateTax(annualSalary);
+            var grossIncome = CalculateGross();
+            var incomeTax = CalculateTax();
+            var netIncome = grossIncome - incomeTax;
+            return netIncome;
+        }
+
+        private string GetIncomeTax()
+        {
+            var income = CalculateTax();
             return $"Income Tax: {income}";
         }
 
-        private uint CalculateTax(uint annualSalary)
+        private uint CalculateTax()
         {
-            return _incomeTaxCalculator.Calculate(annualSalary);
+            return _incomeTaxCalculator.Calculate(_employee.AnnualSalary);
         }
 
-        private string GetGrossIncome(uint annualSalary)
+        private string GetGrossIncome()
         {
-            return $"Gross Income: {CalculateGross(annualSalary)}";
+            return $"Gross Income: {CalculateGross()}";
         }
 
 
-        private uint CalculateGross(uint annualSalary)
+        private uint CalculateGross()
         {
-            return annualSalary / 12;
+            return _employee.AnnualSalary / 12;
         }
 
         private string GetPeriod(Period period)
@@ -77,9 +83,9 @@ namespace PayslipProblemVer2
             return date.ToString("dd MMMM");
         }
 
-        private string GetName(Employee employee)
+        private string GetName()
         {
-            return $"Name: {employee.Name} {employee.Surname}";
+            return $"Name: {_employee.Name} {_employee.Surname}";
         }
     }
 }
