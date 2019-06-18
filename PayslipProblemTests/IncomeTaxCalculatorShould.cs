@@ -10,6 +10,8 @@ namespace PayslipProblemTests
         [InlineData(18200, 0)]
         [InlineData(18201, 0)]
         [InlineData(25000, 1292)]
+        [InlineData(37000, 3572)]
+        [InlineData(37001, 3572)]
         public void Return_correct_incomeTax(uint annualSalary, uint expectedIncomeTax)
         {
             var incomeTaxCalculator = new IncomeTaxCalculator();
