@@ -8,14 +8,13 @@ namespace PayslipProblemTests
     public class PayslipGeneratorShould
     {
         private PayslipGenerator _payslipGenerator;
-        
+
         [Fact]
         public void Return_employee_name()
         {
-            var employee = GetJohnDoeFake();
             _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
 
-            var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.GetPayslip(GetJohnDoeFake(), GetJunePeriodFake());
             
             Assert.Contains("Name: John Doe", payslip);
         }
@@ -23,10 +22,9 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_pay_period()
         {
-            var period = GetJunePeriodFake();
             _payslipGenerator = new PayslipGenerator(new TaxRates2017To2018());
 
-            var payslip = _payslipGenerator.GetPayslip(GetJohnDoeFake(), period);
+            var payslip = _payslipGenerator.GetPayslip(GetJohnDoeFake(), GetJunePeriodFake());
 
             Assert.Contains("Pay Period: 01 June - 30 June", payslip);
         }
