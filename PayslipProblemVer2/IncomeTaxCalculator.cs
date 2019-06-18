@@ -5,9 +5,15 @@ namespace PayslipProblemVer2
 {
     public class IncomeTaxCalculator
     {
+        private readonly ITaxRates _taxRates;
+        public IncomeTaxCalculator(ITaxRates taxRates)
+        {
+            _taxRates = taxRates;
+        }
+        
         public uint Calculate(uint annualSalary)
         {
-            var payRange = PayRange.Get(annualSalary);
+            var payRange = _taxRates.Get(annualSalary);
             var incomeTax = (payRange.Amount + (annualSalary - payRange.LowerLimit) * payRange.Excess) / 12.0;
             var roundedIncomeTax = RoundOff(incomeTax);
             

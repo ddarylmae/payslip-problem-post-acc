@@ -9,7 +9,7 @@ namespace PayslipProblemVer2
 
         public PayslipGenerator()
         {
-            _incomeTaxCalculator = new IncomeTaxCalculator();
+            _incomeTaxCalculator = new IncomeTaxCalculator(new TaxRates2017To2018());
         }
         
         public string GetPayslip(Employee employee, Period period)
