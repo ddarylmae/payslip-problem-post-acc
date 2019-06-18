@@ -1,4 +1,3 @@
-using PayslipProblemVer2;
 using Xunit;
 
 namespace PayslipProblemTests
@@ -9,6 +8,8 @@ namespace PayslipProblemTests
         [InlineData(0, 0)]
         [InlineData(10000, 0)]
         [InlineData(18200, 0)]
+        [InlineData(18201, 0)]
+        [InlineData(25000, 1292)]
         public void Return_correct_incomeTax(uint annualSalary, uint expectedIncomeTax)
         {
             var incomeTaxCalculator = new IncomeTaxCalculator();
@@ -16,14 +17,6 @@ namespace PayslipProblemTests
             var actualIncomeTax = incomeTaxCalculator.Calculate(annualSalary);
             
             Assert.Equal(expectedIncomeTax, actualIncomeTax);
-        }
-    }
-
-    public class IncomeTaxCalculator : IIncomeTaxCalculator
-    {
-        public uint Calculate(uint employeeAnnualSalary)
-        {
-            return 0;
         }
     }
 }
