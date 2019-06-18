@@ -16,13 +16,27 @@ namespace PayslipProblemVer2
             return $"{GetName(employee)}\n" +
                    $"{GetPeriod(period)}\n" +
                    $"{GetGrossIncome(employee.AnnualSalary)}\n" +
-                   $"{GetIncomeTax(employee)}\n";
+                   $"{GetNetIncome(employee.AnnualSalary)}\n" +
+                   $"{GetIncomeTax(employee.AnnualSalary)}\n";
         }
 
-        private string GetIncomeTax(Employee employee)
+        private string GetNetIncome(uint annualSalary)
         {
-            var income = _incomeTaxCalculator.Calculate(employee.AnnualSalary);
+            var grossIncome = CalculateGross(annualSalary);
+            var incomeTax = CalculateTax(annualSalary);
+            var netIncome = grossIncome - incomeTax;
+            return $"Net Income: {netIncome}";
+        }
+
+        private string GetIncomeTax(uint annualSalary)
+        {
+            var income = CalculateTax(annualSalary);
             return $"Income Tax: {income}";
+        }
+
+        private uint CalculateTax(uint annualSalary)
+        {
+            return _incomeTaxCalculator.Calculate(annualSalary);
         }
 
         private string GetGrossIncome(uint annualSalary)
