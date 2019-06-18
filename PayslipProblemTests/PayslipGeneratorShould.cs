@@ -44,8 +44,21 @@ namespace PayslipProblemTests
         }
 
         [Theory]
+        [InlineData(0, 0)]
+        [InlineData(10000, 0)]
+        [InlineData(18200, 0)]
+        [InlineData(18201, 0)]
+        [InlineData(25000, 108)]
+        [InlineData(37000, 298)]
+        [InlineData(37001, 298)]
         [InlineData(60050, 922)]
         [InlineData(80050, 1464)]
+        [InlineData(87000, 1652)]
+        [InlineData(87001, 1652)]
+        [InlineData(100000, 2053)]
+        [InlineData(180000, 4519)]
+        [InlineData(180001, 4519)]
+        [InlineData(200000, 5269)]
         public void Return_income_tax(uint annualSalary, uint expectedIncomeTax)
         {
             var employee = GetJohnDoeFake();
