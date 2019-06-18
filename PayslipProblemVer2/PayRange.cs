@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PayslipProblemTests
+namespace PayslipProblemVer2
 {
     public class PayRange
     {

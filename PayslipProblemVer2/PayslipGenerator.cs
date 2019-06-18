@@ -4,11 +4,11 @@ namespace PayslipProblemVer2
 {
     public class PayslipGenerator
     {
-        private readonly IIncomeTaxCalculator _incomeTaxCalculator;
+        private readonly IncomeTaxCalculator _incomeTaxCalculator;
 
-        public PayslipGenerator(IIncomeTaxCalculator incomeTaxCalculator)
+        public PayslipGenerator()
         {
-            _incomeTaxCalculator = incomeTaxCalculator;
+            _incomeTaxCalculator = new IncomeTaxCalculator();
         }
         
         public string GetPayslip(Employee employee, Period period)
@@ -16,7 +16,7 @@ namespace PayslipProblemVer2
             return $"{GetName(employee)}\n" +
                    $"{GetPeriod(period)}\n" +
                    $"{GetGrossIncome(employee.AnnualSalary)}\n" +
-                   $"{GetIncomeTax(employee)}";
+                   $"{GetIncomeTax(employee)}\n";
         }
 
         private string GetIncomeTax(Employee employee)

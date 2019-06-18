@@ -8,18 +8,12 @@ namespace PayslipProblemTests
     public class PayslipGeneratorShould
     {
         private PayslipGenerator _payslipGenerator;
-        private readonly Mock<IIncomeTaxCalculator> _mockIncomeTaxCalculator;
-        
-        public PayslipGeneratorShould()
-        {
-            _mockIncomeTaxCalculator = new Mock<IIncomeTaxCalculator>();
-        }
         
         [Fact]
         public void Return_employee_name()
         {
             var employee = GetJohnDoeFake();
-            _payslipGenerator = new PayslipGenerator(_mockIncomeTaxCalculator.Object);
+            _payslipGenerator = new PayslipGenerator();
 
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
@@ -30,7 +24,7 @@ namespace PayslipProblemTests
         public void Return_pay_period()
         {
             var period = GetJunePeriodFake();
-            _payslipGenerator = new PayslipGenerator(_mockIncomeTaxCalculator.Object);
+            _payslipGenerator = new PayslipGenerator();
 
             var payslip = _payslipGenerator.GetPayslip(GetJohnDoeFake(), period);
 
@@ -42,25 +36,27 @@ namespace PayslipProblemTests
         {
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = 60050;
-            _payslipGenerator = new PayslipGenerator(_mockIncomeTaxCalculator.Object);
+            _payslipGenerator = new PayslipGenerator();
 
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
             Assert.Contains("Gross Income: 5004", payslip);
         }
 
-        [Fact]
-        public void Return_income_tax()
+        [Theory]
+        [InlineData(60050, 922)]
+        [InlineData(80050, 1464)]
+        public void Return_income_tax(uint annualSalary, uint expectedIncomeTax)
         {
             var employee = GetJohnDoeFake();
-            _mockIncomeTaxCalculator.Setup(x => x.Calculate(It.IsAny<uint>())).Returns(922);
-            _payslipGenerator = new PayslipGenerator(_mockIncomeTaxCalculator.Object);
+            employee.AnnualSalary = annualSalary;
+            _payslipGenerator = new PayslipGenerator();
             
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
             
-            Assert.Contains("Income Tax: 922", payslip);
+            Assert.Contains($"Income Tax: {expectedIncomeTax}", payslip);
         }
-        
+
         private Employee GetJohnDoeFake()
         {
             return new Employee

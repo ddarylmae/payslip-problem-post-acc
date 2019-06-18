@@ -1,14 +1,14 @@
 using System;
 using PayslipProblemVer2;
 
-namespace PayslipProblemTests
+namespace PayslipProblemVer2
 {
-    public class IncomeTaxCalculator : IIncomeTaxCalculator
+    public class IncomeTaxCalculator
     {
         public uint Calculate(uint annualSalary)
         {
             var payRange = PayRange.Get(annualSalary);
-            var incomeTax = payRange.Amount + (annualSalary - payRange.LowerLimit) * payRange.Excess;
+            var incomeTax = (payRange.Amount + (annualSalary - payRange.LowerLimit) * payRange.Excess) / 12.0;
             var roundedIncomeTax = RoundOff(incomeTax);
             
             return roundedIncomeTax;
