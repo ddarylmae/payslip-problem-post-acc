@@ -21,7 +21,7 @@ namespace PayslipProblemVer2
 
         private string GetIncomeTax(Employee employee)
         {
-            var income = _incomeTaxCalculator.Calculate(employee.AnnualSalary, employee.SuperRate);
+            var income = _incomeTaxCalculator.Calculate(employee.AnnualSalary);
             return $"Income Tax: {income}";
         }
 

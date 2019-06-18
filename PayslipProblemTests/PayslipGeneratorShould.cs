@@ -53,7 +53,7 @@ namespace PayslipProblemTests
         public void Return_income_tax()
         {
             var employee = GetJohnDoeFake();
-            _mockIncomeTaxCalculator.Setup(x => x.Calculate(It.IsAny<uint>(), It.IsAny<int>())).Returns(922);
+            _mockIncomeTaxCalculator.Setup(x => x.Calculate(It.IsAny<uint>())).Returns(922);
             _payslipGenerator = new PayslipGenerator(_mockIncomeTaxCalculator.Object);
             
             var payslip = _payslipGenerator.GetPayslip(employee, GetJunePeriodFake());
