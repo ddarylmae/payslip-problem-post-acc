@@ -26,6 +26,7 @@ namespace PayslipProblemTests
         public void Return_pay_period()
         {
             var period = new Period {StartDate = "01 March", EndDate = "31 March"};
+            
             var payslip = _payslipGenerator.Get(GetJohnDoeFake(), period);
 
             Assert.Contains("Pay Period: 01 March - 31 March", payslip);

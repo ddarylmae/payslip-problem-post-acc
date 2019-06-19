@@ -17,11 +17,11 @@ namespace PayslipProblemVer2
             _employee = employee;
             var payslip = _calculator.CalculatePayslip(employee);
             
-            return $"Name: {_employee.Name} {_employee.Surname}\n" +
-                   $"Pay Period: {period.StartDate} - {period.EndDate}\n" +
-                   $"Gross Income: {payslip.GrossIncome}\n" +
-                   $"Income Tax: {payslip.IncomeTax}\n" +
-                   $"Net Income: {payslip.NetIncome}\n" +
+            return $"Name: {_employee.Name} {_employee.Surname} \n" +
+                   $"Pay Period: {period.StartDate} - {period.EndDate} \n" +
+                   $"Gross Income: {payslip.GrossIncome} \n" +
+                   $"Income Tax: {payslip.IncomeTax} \n" +
+                   $"Net Income: {payslip.NetIncome} \n" +
                    $"Super: {payslip.Super}";
         }
     }
