@@ -15,6 +15,17 @@ namespace ConsoleApp
 
         public void Run()
         {
+            DisplayWelcomeMessage();
+            AskForEmployeeName();
+        }
+
+        private void AskForEmployeeName()
+        {
+            _outputWriter.Write("Please input your name:");
+        }
+
+        private void DisplayWelcomeMessage()
+        {
             _outputWriter.Write("Welcome to the payslip generator!");
         }
     }

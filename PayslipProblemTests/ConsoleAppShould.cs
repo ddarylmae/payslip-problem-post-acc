@@ -25,5 +25,15 @@ namespace PayslipProblemTests
             
             _mockOutputWriter.Verify(x => x.Write("Welcome to the payslip generator!"));
         }
+        
+        [Fact]
+        public void Ask_for_employee_name_input()
+        {
+            var payslipConsoleApp = new PayslipGeneratorConsole(_mockOutputWriter.Object, _mockPayslipGenerator.Object);
+
+            payslipConsoleApp.Run();
+            
+            _mockOutputWriter.Verify(x => x.Write("Please input your name:"));
+        }
     }
 }
