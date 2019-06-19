@@ -27,11 +27,21 @@ namespace PayslipGeneratorCore
 
         public Payslip Generate(Employee employee, Period period)
         {
-            return new Payslip
-            {
-                EmployeeName = $"{employee.Name} {employee.Surname}",
-                Period = $"{period.StartDate} - {period.EndDate}",
-            };
+            var payslip = _calculator.CalculatePayslip(employee);
+            payslip.EmployeeName = GetName(employee);
+            payslip.Period = GetPeriod(period);
+            
+            return payslip;
+        }
+
+        private static string GetPeriod(Period period)
+        {
+            return $"{period.StartDate} - {period.EndDate}";
+        }
+
+        private string GetName(Employee employee)
+        {
+            return $"{employee.Name} {employee.Surname}";
         }
     }
 }

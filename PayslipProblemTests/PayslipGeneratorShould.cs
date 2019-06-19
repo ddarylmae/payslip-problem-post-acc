@@ -59,20 +59,20 @@ namespace PayslipProblemTests
         [InlineData(180000, 4519)]
         [InlineData(180001, 4519)]
         [InlineData(200000, 5269)]
-        public void Return_income_tax(uint annualSalary, uint expectedIncomeTax)
+        public void Return_income_tax(uint annualSalary, int expectedIncomeTax)
         {
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
             
-            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
             
-            Assert.Contains($"Income Tax: {expectedIncomeTax}", payslip);
+            Assert.Equal(expectedIncomeTax, payslip.IncomeTax);
         }
 
         [Theory]
         [InlineData(10000, 833)]
         [InlineData(60050, 4082)]
-        public void Return_net_income(uint annualSalary, uint expectedNetIncome)
+        public void Return_net_income(uint annualSalary, int expectedNetIncome)
         {
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
