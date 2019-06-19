@@ -77,23 +77,23 @@ namespace PayslipProblemTests
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
 
-            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
             
-            Assert.Contains($"Net Income: {expectedNetIncome}", payslip);
+            Assert.Equal(expectedNetIncome, payslip.NetIncome);
         }
 
         [Theory]
         [InlineData(10000, 12, 100)]
         [InlineData(60050, 9, 450)]
-        public void Return_super(uint annualSalary, double superRate, uint expectedSuper)
+        public void Return_super(uint annualSalary, double superRate, int expectedSuper)
         {
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = annualSalary;
             employee.SuperRate = superRate;
             
-            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
             
-            Assert.Contains($"Super: {expectedSuper}", payslip);
+            Assert.Equal(expectedSuper, payslip.Super);
         }
 
         private Employee GetJohnDoeFake()
