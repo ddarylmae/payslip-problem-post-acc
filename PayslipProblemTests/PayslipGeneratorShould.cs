@@ -25,9 +25,10 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_pay_period()
         {
-            var payslip = _payslipGenerator.Get(GetJohnDoeFake(), GetJunePeriodFake());
+            var period = new Period {StartDate = "01 March", EndDate = "31 March"};
+            var payslip = _payslipGenerator.Get(GetJohnDoeFake(), period);
 
-            Assert.Contains("Pay Period: 01 June - 30 June", payslip);
+            Assert.Contains("Pay Period: 01 March - 31 March", payslip);
         }
 
         [Fact]
@@ -103,8 +104,8 @@ namespace PayslipProblemTests
         {
             return new Period
             {
-                StartDate = new DateTime(2019, 6, 1),
-                EndDate = new DateTime(2019, 6, 30)
+                StartDate = "01 June",
+                EndDate = "30 June"
             };
         }
     }

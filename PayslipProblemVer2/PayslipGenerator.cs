@@ -17,27 +17,12 @@ namespace PayslipProblemVer2
             _employee = employee;
             var payslip = _calculator.CalculatePayslip(employee);
             
-            return $"{GetName()}\n" +
-                   $"{GetPeriod(period)}\n" +
+            return $"Name: {_employee.Name} {_employee.Surname}\n" +
+                   $"Pay Period: {period.StartDate} - {period.EndDate}\n" +
                    $"Gross Income: {payslip.GrossIncome}\n" +
                    $"Income Tax: {payslip.IncomeTax}\n" +
                    $"Net Income: {payslip.NetIncome}\n" +
                    $"Super: {payslip.Super}";
-        }
-
-        private string GetPeriod(Period period)
-        {
-            return $"Pay Period: {GetFormattedDate(period.StartDate)} - {GetFormattedDate(period.EndDate)}";
-        }
-
-        private string GetFormattedDate(DateTime date)
-        {
-            return date.ToString("dd MMMM");
-        }
-
-        private string GetName()
-        {
-            return $"Name: {_employee.Name} {_employee.Surname}";
         }
     }
 }
