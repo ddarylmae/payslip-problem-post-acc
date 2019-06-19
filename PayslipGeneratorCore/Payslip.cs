@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace PayslipGeneratorCore
 {
     public class Payslip
@@ -6,5 +8,6 @@ namespace PayslipGeneratorCore
         public uint NetIncome { get; set; }
         public uint Super { get; set; }
         public uint IncomeTax { get; set; }
+        public string EmployeeName { get; set; }
     }
 }

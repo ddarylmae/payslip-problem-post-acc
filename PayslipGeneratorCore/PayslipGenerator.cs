@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace PayslipGeneratorCore
 {
     public class PayslipGenerator
@@ -21,6 +23,14 @@ namespace PayslipGeneratorCore
                    $"Income Tax: {payslip.IncomeTax} \n" +
                    $"Net Income: {payslip.NetIncome} \n" +
                    $"Super: {payslip.Super}";
+        }
+
+        public Payslip Generate(Employee employee, Period period)
+        {
+            return new Payslip
+            {
+                EmployeeName = $"{employee.Name} {employee.Surname}",
+            };
         }
     }
 }

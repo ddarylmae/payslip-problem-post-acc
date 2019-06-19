@@ -17,9 +17,9 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_employee_name()
         {
-            var payslip = _payslipGenerator.Get(GetJohnDoeFake(), GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(GetJohnDoeFake(), GetJunePeriodFake());
             
-            Assert.Contains("Name: John Doe", payslip);
+            Assert.Equal("John Doe", payslip.EmployeeName);
         }
 
         [Fact]
