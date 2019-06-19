@@ -2,10 +2,9 @@ using System.Collections.Generic;
 
 namespace PayslipGeneratorCore
 {
-    public class PayslipGenerator
+    public class PayslipGenerator : IPayslipGenerator
     {
         private readonly Calculator _calculator;
-        private Employee _employee;
 
         public PayslipGenerator(ITaxRates taxRates)
         {
@@ -21,7 +20,7 @@ namespace PayslipGeneratorCore
             return payslip;
         }
 
-        private static string GetPeriod(Period period)
+        private string GetPeriod(Period period)
         {
             return $"{period.StartDate} - {period.EndDate}";
         }
