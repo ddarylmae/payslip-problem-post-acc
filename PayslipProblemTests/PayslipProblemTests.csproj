@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PayslipGeneratorConsole\PayslipGeneratorConsole.csproj" />
+      <ProjectReference Include="..\ConsoleApp\ConsoleApp.csproj" />
       <ProjectReference Include="..\PayslipGeneratorCore\PayslipGeneratorCore.csproj" />
     </ItemGroup>
 

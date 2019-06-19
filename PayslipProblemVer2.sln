@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayslipGeneratorCore", "Pay
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayslipProblemTests", "PayslipProblemTests\PayslipProblemTests.csproj", "{13FD6A6F-09E4-4984-9024-9991249998C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayslipGeneratorConsole", "PayslipGeneratorConsole\PayslipGeneratorConsole.csproj", "{5906FE62-E3B8-4C12-BFD9-3DDF488A0525}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{5906FE62-E3B8-4C12-BFD9-3DDF488A0525}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

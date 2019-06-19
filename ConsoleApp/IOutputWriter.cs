@@ -1,4 +1,4 @@
-namespace PayslipGeneratorConsole
+namespace ConsoleApp
 {
     public interface IOutputWriter
     {

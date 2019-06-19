@@ -1,5 +1,5 @@
+using ConsoleApp;
 using Moq;
-using PayslipGeneratorConsole;
 using PayslipGeneratorCore;
 using Xunit;
 
