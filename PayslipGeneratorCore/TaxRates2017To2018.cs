@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PayslipProblemVer2
+namespace PayslipGeneratorCore
 {
     public class TaxRates2017To2018 : ITaxRates
     {

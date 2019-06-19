@@ -1,6 +1,6 @@
 using System;
 using Moq;
-using PayslipProblemVer2;
+using PayslipGeneratorCore;
 using Xunit;
 
 namespace PayslipProblemTests

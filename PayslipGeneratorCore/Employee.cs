@@ -1,4 +1,4 @@
-namespace PayslipProblemVer2
+namespace PayslipGeneratorCore
 {
     public class Employee
     {

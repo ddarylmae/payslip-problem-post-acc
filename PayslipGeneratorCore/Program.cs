@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayslipProblemVer2
+namespace PayslipGeneratorCore
 {
     public static class Program
     {
