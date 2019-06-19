@@ -4,11 +4,13 @@ namespace ConsoleApp
 {
     public class PayslipGeneratorConsole
     {
+        private readonly IInputReader _inputReader;
         private readonly IOutputWriter _outputWriter;
         private IPayslipGenerator _payslipGenerator;
         
-        public PayslipGeneratorConsole(IOutputWriter outputWriter, IPayslipGenerator payslipGenerator)
+        public PayslipGeneratorConsole(IInputReader inputReader, IOutputWriter outputWriter, IPayslipGenerator payslipGenerator)
         {
+            _inputReader = inputReader;
             _outputWriter = outputWriter;
             _payslipGenerator = payslipGenerator;
         }
@@ -22,6 +24,7 @@ namespace ConsoleApp
         private void AskForEmployeeName()
         {
             _outputWriter.Write("Please input your name:");
+            _inputReader.Read();
         }
 
         private void DisplayWelcomeMessage()
