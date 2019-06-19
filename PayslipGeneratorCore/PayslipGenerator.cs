@@ -30,6 +30,7 @@ namespace PayslipGeneratorCore
             return new Payslip
             {
                 EmployeeName = $"{employee.Name} {employee.Surname}",
+                Period = $"{period.StartDate} - {period.EndDate}",
             };
         }
     }

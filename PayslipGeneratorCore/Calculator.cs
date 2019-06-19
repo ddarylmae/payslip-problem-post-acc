@@ -24,7 +24,7 @@ namespace PayslipGeneratorCore
             };
         }
         
-        private uint CalculateSuper()
+        private int CalculateSuper()
         {
             var gross = CalculateGross();
             var super = gross * (_employee.SuperRate / 100.0);
@@ -32,12 +32,12 @@ namespace PayslipGeneratorCore
             return RoundToInt(super);
         }
         
-        private uint CalculateGross()
+        private int CalculateGross()
         {
-            return _employee.AnnualSalary / 12;
+            return (int) _employee.AnnualSalary / 12;
         }
         
-        private uint CalculateNetIncome()
+        private int CalculateNetIncome()
         {
             var grossIncome = CalculateGross();
             var incomeTax = CalculateTax();
@@ -45,7 +45,7 @@ namespace PayslipGeneratorCore
             return netIncome;
         }
         
-        private uint CalculateTax()
+        private int CalculateTax()
         {
             var payRange = _taxRates.Get(_employee.AnnualSalary);
             var incomeTax = (payRange.Amount + (_employee.AnnualSalary - payRange.LowerLimit) * payRange.Excess) / 12.0;
@@ -54,9 +54,9 @@ namespace PayslipGeneratorCore
             return roundedIncomeTax;
         }
 
-        private uint RoundToInt(double value)
+        private int RoundToInt(double value)
         {
-            return (uint) Math.Round(value);
+            return (int) Math.Round(value);
         }
     }
 }

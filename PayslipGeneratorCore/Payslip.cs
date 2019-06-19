@@ -4,10 +4,11 @@ namespace PayslipGeneratorCore
 {
     public class Payslip
     {
-        public uint GrossIncome { get; set; }
-        public uint NetIncome { get; set; }
-        public uint Super { get; set; }
-        public uint IncomeTax { get; set; }
+        public int GrossIncome { get; set; }
+        public int NetIncome { get; set; }
+        public int Super { get; set; }
+        public int IncomeTax { get; set; }
         public string EmployeeName { get; set; }
+        public string Period { get; set; }
     }
 }

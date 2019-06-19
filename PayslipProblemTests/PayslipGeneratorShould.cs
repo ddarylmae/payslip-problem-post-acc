@@ -27,9 +27,9 @@ namespace PayslipProblemTests
         {
             var period = new Period {StartDate = "01 March", EndDate = "31 March"};
             
-            var payslip = _payslipGenerator.Get(GetJohnDoeFake(), period);
+            var payslip = _payslipGenerator.Generate(GetJohnDoeFake(), period);
 
-            Assert.Contains("Pay Period: 01 March - 31 March", payslip);
+            Assert.Equal("01 March - 31 March", payslip.Period);
         }
 
         [Fact]
@@ -38,9 +38,9 @@ namespace PayslipProblemTests
             var employee = GetJohnDoeFake();
             employee.AnnualSalary = 60050;
             
-            var payslip = _payslipGenerator.Get(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
             
-            Assert.Contains("Gross Income: 5004", payslip);
+            Assert.Equal(5004, payslip.GrossIncome);
         }
 
         [Theory]
