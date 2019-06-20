@@ -20,7 +20,13 @@ namespace ConsoleApp
         {
             DisplayWelcomeMessage();
             var payslipRequest = GetUserInputs();
-            ProcessPayslip(payslipRequest);
+            var payslip = ProcessPayslip(payslipRequest);
+            DisplayPayslipReport(payslip);
+        }
+
+        private Payslip ProcessPayslip(PayslipRequest payslipRequest)
+        {
+            return _payslipGenerator.Generate(payslipRequest);
         }
 
         private PayslipRequest GetUserInputs()
@@ -40,40 +46,45 @@ namespace ConsoleApp
 
         private uint GetAnnualSalary()
         {
-            uint.TryParse(GetInput("annual salary"), out var annualSalary);
+            Display(MessageConstants.EnterAnnualSalary);
+            uint.TryParse(GetInput(), out var annualSalary);
             return annualSalary;
         }
 
         private string GetEndDate()
         {
-            return GetInput("payment end date");
+            Display(MessageConstants.EnterEndDate);
+            return GetInput();
         }
 
         private string GetStartDate()
         {
-            return GetInput("payment start date");
+            Display(MessageConstants.EnterStartDate);
+            return GetInput();
         }
 
         private double GetSuperRate()
         {
-            Double.TryParse(GetInput("super rate"), out var superRate);
+            Display(MessageConstants.EnterSuperRate);
+            Double.TryParse(GetInput(), out var superRate);
             return superRate;
         }
 
         private string GetSurname()
         {
-            return GetInput("surname");
+            Display(MessageConstants.EnterSurname);
+            return GetInput();
         }
 
         private string GetName()
         {
-            return GetInput("name");
+            Display(MessageConstants.EnterName);
+            return GetInput();
         }
 
-        private void ProcessPayslip(PayslipRequest request)
+        private void DisplayPayslipReport(Payslip payslip)
         {
-            var payslip = _payslipGenerator.Generate(request);
-            Output("Your payslip has been generated:\n\n"+
+            Display("Your payslip has been generated:\n\n" +
                 $"Name: {payslip.EmployeeName}\n" +
                 $"Pay Period: {payslip.Period}\n" +
                 $"Gross Income: {payslip.GrossIncome}\n" +
@@ -82,21 +93,19 @@ namespace ConsoleApp
                 $"Super: {payslip.Super}");
         }
 
-        private string GetInput(string requestedInput)
+        private string GetInput()
         {
-            Output($"Please enter your {requestedInput}: ");
-            var userInput = _inputReader.Read();
-            return userInput;
+            return _inputReader.Read();
         }
 
-        private void Output(string message)
+        private void Display(string message)
         {
             _outputWriter.Write(message);
         }
 
         private void DisplayWelcomeMessage()
         {
-            Output("Welcome to the payslip generator!");
+            Display(MessageConstants.Welcome);
         }
     }
 }
