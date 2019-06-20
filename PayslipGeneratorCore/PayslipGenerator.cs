@@ -11,23 +11,23 @@ namespace PayslipGeneratorCore
             _calculator = new Calculator(taxRates);
         }
 
-        public Payslip Generate(Employee employee, Period period)
+        public Payslip Generate(PayslipRequest request)
         {
-            var payslip = _calculator.CalculatePayslip(employee);
-            payslip.EmployeeName = GetName(employee);
-            payslip.Period = GetPeriod(period);
+            var payslip = _calculator.CalculatePayslip(request);
+            payslip.EmployeeName = GetName(request.Name, request.Surname);
+            payslip.Period = GetPeriod(request.StartDate, request.EndDate);
             
             return payslip;
         }
 
-        private string GetPeriod(Period period)
+        private string GetPeriod(string startDate, string endDate)
         {
-            return $"{period.StartDate} - {period.EndDate}";
+            return $"{startDate} - {endDate}";
         }
 
-        private string GetName(Employee employee)
+        private string GetName(string name, string surname)
         {
-            return $"{employee.Name} {employee.Surname}";
+            return $"{name} {surname}";
         }
     }
 }

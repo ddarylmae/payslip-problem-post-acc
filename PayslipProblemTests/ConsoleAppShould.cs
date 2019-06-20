@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using ConsoleApp;
 using Moq;
 using PayslipGeneratorCore;
@@ -19,24 +21,29 @@ namespace PayslipProblemTests
         }
         
         [Fact]
-        public void Display_welcome_message()
+        public void Display_payslip_from_generator()
         {
+            var payslip = new Payslip
+            {
+                EmployeeName = "Jane Doe",
+                Period = "01 March – 31 March",
+                IncomeTax = 922,
+                GrossIncome = 5004,
+                NetIncome = 4082,
+                Super = 450
+            };
+            var expectedOutput = GetContent("payslip-output.txt");
+            _mockPayslipGenerator.Setup(x => x.Generate(It.IsAny<PayslipRequest>())).Returns(payslip);
             var payslipConsoleApp = new PayslipGeneratorConsole(_mockInputReader.Object, _mockOutputWriter.Object, _mockPayslipGenerator.Object);
-
+            
             payslipConsoleApp.Run();
             
-            _mockOutputWriter.Verify(x => x.Write("Welcome to the payslip generator!"));
+            _mockOutputWriter.Verify(x => x.Write(expectedOutput));
         }
         
-        [Fact]
-        public void Ask_for_employee_name_input()
+        private string GetContent(string filePath)
         {
-            var payslipConsoleApp = new PayslipGeneratorConsole(_mockInputReader.Object, _mockOutputWriter.Object, _mockPayslipGenerator.Object);
-
-            payslipConsoleApp.Run();
-            
-            _mockOutputWriter.Verify(x => x.Write("Please input your name:"));
-            _mockInputReader.Verify(x => x.Read(), Times.Once);
+            return File.ReadAllText(filePath);
         }
     }
 }

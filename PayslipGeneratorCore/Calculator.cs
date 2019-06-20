@@ -4,7 +4,7 @@ namespace PayslipGeneratorCore
 {
     public class Calculator
     {
-        private Employee _employee;
+        private PayslipRequest _payslipRequest;
         private readonly ITaxRates _taxRates;
         
         public Calculator(ITaxRates taxRates)
@@ -12,9 +12,9 @@ namespace PayslipGeneratorCore
             _taxRates = taxRates;
         }
 
-        public Payslip CalculatePayslip(Employee employee)
+        public Payslip CalculatePayslip(PayslipRequest payslipRequest)
         {
-            _employee = employee;
+            _payslipRequest = payslipRequest;
             return new Payslip
             {
                 GrossIncome = CalculateGross(),
@@ -27,14 +27,14 @@ namespace PayslipGeneratorCore
         private int CalculateSuper()
         {
             var gross = CalculateGross();
-            var super = gross * (_employee.SuperRate / 100.0);
+            var super = gross * (_payslipRequest.SuperRate / 100.0);
             
             return RoundToInt(super);
         }
         
         private int CalculateGross()
         {
-            return (int) _employee.AnnualSalary / 12;
+            return (int) _payslipRequest.AnnualSalary / 12;
         }
         
         private int CalculateNetIncome()
@@ -47,8 +47,8 @@ namespace PayslipGeneratorCore
         
         private int CalculateTax()
         {
-            var payRange = _taxRates.Get(_employee.AnnualSalary);
-            var incomeTax = (payRange.Amount + (_employee.AnnualSalary - payRange.LowerLimit) * payRange.Excess) / 12.0;
+            var payRange = _taxRates.Get(_payslipRequest.AnnualSalary);
+            var incomeTax = (payRange.Amount + (_payslipRequest.AnnualSalary - payRange.LowerLimit) * payRange.Excess) / 12.0;
             var roundedIncomeTax = RoundToInt(incomeTax);
             
             return roundedIncomeTax;

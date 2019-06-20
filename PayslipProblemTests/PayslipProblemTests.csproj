@@ -18,4 +18,10 @@
       <ProjectReference Include="..\PayslipGeneratorCore\PayslipGeneratorCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="payslip-output.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

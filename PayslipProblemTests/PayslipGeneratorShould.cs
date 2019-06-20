@@ -17,7 +17,7 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_employee_name()
         {
-            var payslip = _payslipGenerator.Generate(GetJohnDoeFake(), GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(GetPayslipRequestFake());
             
             Assert.Equal("John Doe", payslip.EmployeeName);
         }
@@ -25,9 +25,11 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_pay_period()
         {
-            var period = new Period {StartDate = "01 March", EndDate = "31 March"};
+            var payslipRequest = GetPayslipRequestFake();
+            payslipRequest.StartDate = "01 March";
+            payslipRequest.EndDate = "31 March";
             
-            var payslip = _payslipGenerator.Generate(GetJohnDoeFake(), period);
+            var payslip = _payslipGenerator.Generate(payslipRequest);
 
             Assert.Equal("01 March - 31 March", payslip.Period);
         }
@@ -35,10 +37,10 @@ namespace PayslipProblemTests
         [Fact]
         public void Return_gross_income()
         {
-            var employee = GetJohnDoeFake();
-            employee.AnnualSalary = 60050;
+            var payslipRequest = GetPayslipRequestFake();
+            payslipRequest.AnnualSalary = 60050;
             
-            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(payslipRequest);
             
             Assert.Equal(5004, payslip.GrossIncome);
         }
@@ -61,10 +63,10 @@ namespace PayslipProblemTests
         [InlineData(200000, 5269)]
         public void Return_income_tax(uint annualSalary, int expectedIncomeTax)
         {
-            var employee = GetJohnDoeFake();
-            employee.AnnualSalary = annualSalary;
+            var payslipRequest = GetPayslipRequestFake();
+            payslipRequest.AnnualSalary = annualSalary;
             
-            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(payslipRequest);
             
             Assert.Equal(expectedIncomeTax, payslip.IncomeTax);
         }
@@ -74,10 +76,10 @@ namespace PayslipProblemTests
         [InlineData(60050, 4082)]
         public void Return_net_income(uint annualSalary, int expectedNetIncome)
         {
-            var employee = GetJohnDoeFake();
-            employee.AnnualSalary = annualSalary;
+            var payslipRequest = GetPayslipRequestFake();
+            payslipRequest.AnnualSalary = annualSalary;
 
-            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(payslipRequest);
             
             Assert.Equal(expectedNetIncome, payslip.NetIncome);
         }
@@ -87,24 +89,21 @@ namespace PayslipProblemTests
         [InlineData(60050, 9, 450)]
         public void Return_super(uint annualSalary, double superRate, int expectedSuper)
         {
-            var employee = GetJohnDoeFake();
-            employee.AnnualSalary = annualSalary;
-            employee.SuperRate = superRate;
+            var payslipRequest = GetPayslipRequestFake();
+            payslipRequest.AnnualSalary = annualSalary;
+            payslipRequest.SuperRate = superRate;
             
-            var payslip = _payslipGenerator.Generate(employee, GetJunePeriodFake());
+            var payslip = _payslipGenerator.Generate(payslipRequest);
             
             Assert.Equal(expectedSuper, payslip.Super);
         }
-
-        private Employee GetJohnDoeFake()
+        
+        private PayslipRequest GetPayslipRequestFake()
         {
-            return new Employee { Name = "John", Surname = "Doe" };
-        }
-
-        private Period GetJunePeriodFake()
-        {
-            return new Period
+            return new PayslipRequest
             {
+                Name = "John", 
+                Surname = "Doe",
                 StartDate = "01 June",
                 EndDate = "30 June"
             };

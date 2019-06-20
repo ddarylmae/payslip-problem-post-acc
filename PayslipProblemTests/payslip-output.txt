@@ -1,0 +1,8 @@
+Your payslip has been generated:
+
+Name: Jane Doe
+Pay Period: 01 March – 31 March
+Gross Income: 5004
+Income Tax: 922
+Net Income: 4082
+Super: 450

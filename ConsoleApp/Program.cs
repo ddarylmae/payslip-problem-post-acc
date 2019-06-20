@@ -1,4 +1,5 @@
 ﻿using System;
+using PayslipGeneratorCore;
 
 namespace ConsoleApp
 {
@@ -6,7 +7,12 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var payslipConsole = new PayslipGeneratorConsole(
+                new InputReader(),
+                new OutputWriter(), 
+                new PayslipGenerator(new TaxRates2017To2018()));
+            
+            payslipConsole.Run();
         }
     }
 }
